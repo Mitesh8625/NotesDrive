@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Notes Drive</title>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="jpg" href="notesdrive_favicon.jpg" />
+</head>
+
+<body>
+  <!-- ================== NAVIGATION BAR ================== -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <div class="logo navbar-brand">Notes Drive</div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="nav-links navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link active" href="login.html">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="SignUp.html">Sign Up</a></li>
+          <li class="nav-item"><a class="nav-link" href="UploadNotes.html">Upload Notes</a></li>
+          <li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================== LOGIN FORM ================== -->
+  <div class="login-container">
+    <form id="loginForm" class="login-form">
+      <h2>Login</h2>
+
+      <div class="input-group">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email" required />
+      </div>
+
+      <div class="input-group">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" required />
+      </div>
+
+      <button type="submit">Login</button>
+
+      <p class="signup-link">
+        Don't have an account? <a href="SignUp.html">Sign up</a>
+      </p>
+    </form>
+  </div>
+
+  <!-- ================== FOOTER ================== -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>© 2025 <span>Notes Drive</span> | All Rights Reserved</p>
+      <div class="social-icons">
+        <a href="https://instagram.com" target="_blank" class="social-link"><i class="bi bi-instagram"></i></a>
+        <a href="https://wa.me/your-number" target="_blank" class="social-link"><i class="bi bi-whatsapp"></i></a>
+        <a href="https://facebook.com" target="_blank" class="social-link"><i class="bi bi-facebook"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================== BOOTSTRAP JS ================== -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- ================== LOGIN SCRIPT WITH LOCALSTORAGE ================== -->
+  <script>
+    const loginForm = document.getElementById("loginForm");
+
+    loginForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+
+      // Get users from localStorage
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+
+      // Find user by email and password
+      const user = users.find(u => u.email === email && u.password === password);
+
+      if (user) {
+        alert(`Login successful! Welcome, ${user.name}`);
+        
+        // Save currently logged-in user
+        localStorage.setItem("currentUser", JSON.stringify(user));
+
+        // Redirect to home page
+        window.location.href = "index.html";
+      } else {
+        alert("Invalid email or password!");
+      }
+    });
+  </script>
+
+</body>
+</html>
